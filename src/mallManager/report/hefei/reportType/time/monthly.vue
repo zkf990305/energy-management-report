@@ -25,6 +25,7 @@
       详细数据
       <el-table :data="tableData" border style="width: 100%">
         <!-- <el-table-column prop="ID" label="日期" width="180"> </el-table-column> -->
+        <el-table-column type="index" width="50" />
         <el-table-column prop="Day" label="日期" width="180"> </el-table-column>
         <el-table-column prop="Name" label="设备名称" width="180">
         </el-table-column>
@@ -54,10 +55,10 @@ import {
   getDevicesByID,
   // getDevicesMonthReportToWater,
   getDevicesMonthReportToElectricity,
-  // getDevicesMonthReportToGas,
+  getDevicesMonthReportToGas,
   // getDevicesMonthReportToWaterDetail,
   getDevicesMonthReportToElectricityDetail,
-  // getDeviceMonthReportToGasDetail,
+  getDevicesMonthReportToGasDetail,
 } from "@/api/hefei";
 import dayjs from "dayjs";
 // 全局变量
@@ -74,7 +75,7 @@ export default {
     return {
       title: "表格",
       json_fields: {
-        ID: "ID",
+        // ID: "ID",
         日期: "Day",
         设备名称: "Name",
         用量: "Dosage",
@@ -117,9 +118,9 @@ export default {
         DeviceID: this.deviceInfo.Id,
       };
       if (this.deviceInfo.Category1 === "水") {
-        await getDevicesMonthReportToWaterDetail(querydata).then((res) => {
-          this.tableData = Array.isArray(res.data) ? res.data : [];
-        });
+        // await getDevicesMonthReportToWaterDetail(querydata).then((res) => {
+        //   this.tableData = Array.isArray(res.data) ? res.data : [];
+        // });
       } else if (
         this.deviceInfo.Category1 === "电" ||
         this.deviceInfo.Category1 === "Electricity"
@@ -129,8 +130,11 @@ export default {
             this.tableData = Array.isArray(res.data) ? res.data : [];
           }
         );
-      } else if (this.deviceInfo.Category1 === "气") {
-        await getDeviceMonthReportToGasDetail(querydata).then((res) => {
+      } else if (
+        this.deviceInfo.Category1 === "气" ||
+        this.deviceInfo.Category1 === "Gas"
+      ) {
+        await getDevicesMonthReportToGasDetail(querydata).then((res) => {
           this.tableData = Array.isArray(res.data) ? res.data : [];
         });
       }
@@ -184,15 +188,15 @@ export default {
       });
 
       if (this.deviceInfo.Category1 === "水") {
-        this.monthUnit = "m³";
-        const waterdata = {
-          Year: this.formatToYearMonth(this.monthTime, "YYYY"),
-          Month: this.formatToYearMonth(this.monthTime, "MM"),
-          DeviceID: this.deviceInfo.Id,
-        };
-        await getDevicesMonthReportToWater(waterdata).then((res) => {
-          this.objConsumptionMonth = res.data;
-        });
+        // this.monthUnit = "m³";
+        // const waterdata = {
+        //   Year: this.formatToYearMonth(this.monthTime, "YYYY"),
+        //   Month: this.formatToYearMonth(this.monthTime, "MM"),
+        //   DeviceID: this.deviceInfo.Id,
+        // };
+        // await getDevicesMonthReportToWater(waterdata).then((res) => {
+        //   this.objConsumptionMonth = res.data;
+        // });
       } else if (
         this.deviceInfo.Category1 === "电" ||
         this.deviceInfo.Category1 === "Electricity"
@@ -222,7 +226,9 @@ export default {
       }
       // 取出 "Day", "Dosage" 字段并形成数组
       const dayArray = this.objConsumptionMonth.map((item) => item.Day);
-      const DosageArrray = this.objConsumptionMonth.map((item) => item.Dosage);
+      const DosageArrray = this.objConsumptionMonth.map(
+        (item) => item.sumDosage
+      );
       this.totalConsumptioMonth = DosageArrray.reduce(
         (accumulator, currentValue) => accumulator + currentValue,
         0

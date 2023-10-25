@@ -49,7 +49,8 @@
     <div id="pageDetail" v-show="detailShow">
       详细数据
       <el-table :data="tableData" border style="width: 100%">
-        <el-table-column prop="ID" label="ID" width="180"> </el-table-column>
+        <el-table-column type="index" width="50" />
+        <!-- <el-table-column prop="ID" label="ID" width="180"> </el-table-column> -->
         <el-table-column prop="Day" label="日期" width="180"> </el-table-column>
         <el-table-column prop="Name" label="设备名称" width="180">
         </el-table-column>
@@ -108,7 +109,7 @@ export default {
     return {
       title: "表格",
       json_fields: {
-        ID: "ID",
+        // ID: "ID",
         日期: "Day",
         设备名称: "Name",
         用量: "Dosage",
@@ -282,11 +283,11 @@ export default {
       // 取出 "Day", "Dosage" 字段并形成数组
       const dayArray = this.objConsumptionMonth.map((item) => item.Day);
       const DosageArrray = this.objConsumptionMonth.map(
-        (item) => item.DosageSum
+        (item) => item.dosageSum
       );
       // 排序
       const deviceSortArray = this.objSortConsumptionMonth.map(
-        (item) => item.DeviceName
+        (item) => item.Name
       );
       const DosageSortArrray = this.objSortConsumptionMonth.map((item) =>
         item.Dosage.toFixed(2)
@@ -299,7 +300,7 @@ export default {
       const DosageIngredientArrray = this.objIngredientConsumptionMonth.map(
         (item) => {
           return {
-            value: item.SumDosage,
+            value: item.sumDosage,
             name: item.Catalog2 + "--" + item.DosageRatio,
           };
         }

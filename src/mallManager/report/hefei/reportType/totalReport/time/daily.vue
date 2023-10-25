@@ -49,6 +49,7 @@
     <div id="pageDetail" v-show="detailShow">
       详细数据
       <el-table :data="tableData" border style="width: 100%">
+        <el-table-column type="index" width="50" />
         <!-- <el-table-column prop="ID" label="日期" width="180"> </el-table-column> -->
         <el-table-column prop="Hour" label="日期" width="180">
         </el-table-column>
@@ -106,7 +107,7 @@ export default {
     return {
       title: "表格",
       json_fields: {
-        ID: "ID",
+        // ID: "ID",
         日期: "Hour",
         设备名称: "Name",
         用量: "Dosage",
@@ -232,16 +233,16 @@ export default {
         Time: time + "",
       };
       if (this.$route.meta.Name === "水") {
-        this.monthUnit = "m³";
-        await getAllDevicesDayReportToWater(querydata).then((res) => {
-          this.objConsumptionDay = res.data;
-        });
-        await getSortDevicesDayReportToWater(querydata).then((res) => {
-          this.objSortConsumptionDay = res.data;
-        });
-        await getIngredientDevicesDayReportToWater(querydata).then((res) => {
-          this.objIngredientConsumptionDay = res.data;
-        });
+        // this.monthUnit = "m³";
+        // await getAllDevicesDayReportToWater(querydata).then((res) => {
+        //   this.objConsumptionDay = res.data;
+        // });
+        // await getSortDevicesDayReportToWater(querydata).then((res) => {
+        //   this.objSortConsumptionDay = res.data;
+        // });
+        // await getIngredientDevicesDayReportToWater(querydata).then((res) => {
+        //   this.objIngredientConsumptionDay = res.data;
+        // });
       } else if (
         this.$route.meta.Name === "电" ||
         this.$route.meta.Name === "Electricity"
@@ -282,14 +283,14 @@ export default {
       const dayArray = this.objConsumptionDay.map((item) => {
         return item.Hour.split(" ")[1];
       });
-      const DosageArrray = this.objConsumptionDay.map((item) => item.SumDosage);
+      const DosageArrray = this.objConsumptionDay.map((item) => item.sumDosage);
 
       // 排序
       const deviceSortArray = this.objSortConsumptionDay.map(
         (item) => item.Name
       );
       const DosageSortArrray = this.objSortConsumptionDay.map((item) =>
-        item.SumDosage.toFixed(2)
+        item.sumDosage.toFixed(2)
       );
       // 成分
       const deviceIngredientArray = this.objIngredientConsumptionDay.map(
@@ -299,7 +300,7 @@ export default {
       const DosageIngredientArrray = this.objIngredientConsumptionDay.map(
         (item) => {
           return {
-            value: item.SumDosage,
+            value: item.sumDosage,
             name: item.Catalog2 + "--" + item.DosageRatio,
           };
         }

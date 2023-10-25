@@ -3,7 +3,7 @@
     <div class="top-container">
       <el-row>
         <!-- 水 -->
-        <el-col :span="8">
+        <!-- <el-col :span="8">
           <div class="sub-block1">
             <el-row>
               <el-col :span="12">
@@ -48,9 +48,9 @@
               </el-col>
             </el-row>
           </div>
-        </el-col>
+        </el-col> -->
         <!-- 气 -->
-        <el-col :span="8">
+        <el-col :span="12">
           <div class="sub-block1">
             <el-row>
               <el-col :span="12">
@@ -95,7 +95,7 @@
           </div>
         </el-col>
         <!-- 电 -->
-        <el-col :span="8">
+        <el-col :span="12">
           <div class="sub-block1">
             <el-row>
               <el-col :span="12">
@@ -164,25 +164,17 @@
 
 <script>
 import {
-  getAllDevicesMonthReportToWater,
-  // getAllDevicesMonthReportToElectricity,
-  getAllDevicesMonthReportToGas,
-  getIngredientDevicesMonthReportToWater,
-  // getIngredientDevicesMonthReportToElectricity,
-  getIngredientDevicesMonthReportToGas,
-} from "@/api/common";
-import {
   // getAllDevicesMonthReportToWater,
   getAllDevicesMonthReportToElectricity,
-  // getAllDevicesMonthReportToGas,
+  getAllDevicesMonthReportToGas,
   // getIngredientDevicesMonthReportToWater,
   getIngredientDevicesMonthReportToElectricity,
-  // getIngredientDevicesMonthReportToGas,
+  getIngredientDevicesMonthReportToGas,
 } from "@/api/hefei";
 import * as echarts from "echarts";
 import dayjs from "dayjs";
 // 全局变量 echarts实例
-let pieChartWater;
+// let pieChartWater;
 let pieChartGas;
 let pieChartElectricity;
 let barCharMonth;
@@ -191,10 +183,10 @@ export default {
   data() {
     return {
       // 水
-      waterIngredientConsumptionMonth: [],
-      waterConsumptionMonth: [],
-      totalWaterByMonth: 0,
-      totalWaterByDay: 0,
+      // waterIngredientConsumptionMonth: [],
+      // waterConsumptionMonth: [],
+      // totalWaterByMonth: 0,
+      // totalWaterByDay: 0,
       // 气
       gasIngredientConsumptionMonth: [],
       gasConsumptionMonth: [],
@@ -209,7 +201,7 @@ export default {
   },
   mounted() {
     this.setEchartsBottomContainer();
-    this.setWaterEchartsByMonth();
+    // this.setWaterEchartsByMonth();
     this.setGasEchartsByMonth();
     this.setElectricityEchartsByMonth();
   },
@@ -226,9 +218,9 @@ export default {
         Month: this.formatToYearMonth(new Date(), "MM"),
       };
       // 用水量
-      await getAllDevicesMonthReportToWater(querydata).then((res) => {
-        this.waterConsumptionMonth = res.data;
-      });
+      // await getAllDevicesMonthReportToWater(querydata).then((res) => {
+      //   this.waterConsumptionMonth = res.data;
+      // });
       // 用气量
       await getAllDevicesMonthReportToGas(querydata).then((res) => {
         this.gasConsumptionMonth = res.data;
@@ -239,23 +231,23 @@ export default {
       });
       //   水
       // 取出 "Day", "Dosage" 字段并形成数组
-      const dayArrayWater = this.waterConsumptionMonth.map((item) => item.Day);
+      // const dayArrayWater = this.waterConsumptionMonth.map((item) => item.Day);
 
-      const DosageArrrayWater = this.waterConsumptionMonth.map(
-        (item) => item.dosageSum
-      );
-      this.totalWaterByMonth = DosageArrrayWater.reduce(
-        (accumulator, currentValue) => accumulator + currentValue,
-        0
-      ).toFixed(2);
-      for (let index = 0; index < this.waterConsumptionMonth.length; index++) {
-        if (
-          this.waterConsumptionMonth[index].Day + "" ===
-          this.formatToYearMonth(new Date(), "MM/DD") + ""
-        ) {
-          this.totalWaterByDay = this.waterConsumptionMonth[index].dosageSum;
-        }
-      }
+      // const DosageArrrayWater = this.waterConsumptionMonth.map(
+      //   (item) => item.dosageSum
+      // );
+      // this.totalWaterByMonth = DosageArrrayWater.reduce(
+      //   (accumulator, currentValue) => accumulator + currentValue,dosageSum
+      //   0
+      // ).toFixed(2);
+      // for (let index = 0; index < this.waterConsumptionMonth.length; index++) {
+      //   if (
+      //     this.waterConsumptionMonth[index].Day + "" ===
+      //     this.formatToYearMonth(new Date(), "MM/DD") + ""
+      //   ) {
+      //     this.totalWaterByDay = this.waterConsumptionMonth[index].dosageSum;
+      //   }
+      // }
       // 电
       // 取出 "Day", "Dosage" 字段并形成数组
       const dayArrayElectricity = this.electricityConsumptionMonth.map(
@@ -316,7 +308,7 @@ export default {
         },
         // color: ["red", "blud", "yellow"],
         legend: {
-          data: ["water", "electricity", "gas"],
+          data: ["electricity", "gas"],
           textStyle: {
             color: "#fffffff",
           },
@@ -345,20 +337,20 @@ export default {
           },
         ],
         series: [
-          {
-            name: "water",
-            type: "bar",
-            data: [],
-            markPoint: {
-              data: [
-                { type: "max", name: "Max" },
-                { type: "min", name: "Min" },
-              ],
-            },
-            markLine: {
-              data: [{ type: "average", name: "Avg" }],
-            },
-          },
+          // {
+          //   name: "water",
+          //   type: "bar",
+          //   data: [],
+          //   markPoint: {
+          //     data: [
+          //       { type: "max", name: "Max" },
+          //       { type: "min", name: "Min" },
+          //     ],
+          //   },
+          //   markLine: {
+          //     data: [{ type: "average", name: "Avg" }],
+          //   },
+          // },
           {
             name: "electricity",
             type: "bar",
@@ -406,15 +398,15 @@ export default {
           //   },
         ],
       };
-      console.log("dayArrayWater=>", dayArrayWater);
+      // console.log("dayArrayWater=>", dayArrayWater);
       console.log("dayArray电=>", dayArrayElectricity);
       console.log("dayArra气=>", dayArrayGas);
-      option.xAxis[0].data = dayArrayWater;
-      option.series[0].data = DosageArrrayWater;
-      //   option.xAxis[1].data = dayArrayElectricity;
-      option.series[1].data = DosageArrrayElectricity;
-      //   option.xAxis[0].data = dayArrayWater;
-      option.series[2].data = DosageArrrayGas;
+      // option.xAxis[0].data = dayArrayWater;
+      // option.series[0].data = DosageArrrayWater;
+      option.xAxis[0].data = dayArrayElectricity;
+      option.series[0].data = DosageArrrayElectricity;
+      option.xAxis[0].data = dayArrayGas;
+      option.series[1].data = DosageArrrayGas;
 
       if (
         barCharMonth != null &&
@@ -432,82 +424,82 @@ export default {
       window.onresize = barCharMonth.resize;
     },
 
-    async setWaterEchartsByMonth() {
-      const querydata = {
-        Year: this.formatToYearMonth(new Date(), "YYYY"),
-        Month: this.formatToYearMonth(new Date(), "MM"),
-      };
-      await getIngredientDevicesMonthReportToWater(querydata).then((res) => {
-        this.waterIngredientConsumptionMonth = res.data;
-      });
-      // 成分
-      const deviceIngredientArray = this.waterIngredientConsumptionMonth.map(
-        (item) => item.Catalog2
-      );
-      const DosageIngredientArrray = this.waterIngredientConsumptionMonth.map(
-        (item) => {
-          return {
-            value: item.sumDosage,
-            name: item.Catalog2,
-          };
-        }
-      );
-      let pieoption = {
-        title: {
-          text: "",
-          x: "center",
-        },
-        tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)",
-        },
-        legend: {
-          orient: "vertical",
-          left: "right",
-          data: [],
-          textStyle: {
-            color: "#fffffff",
-          },
-        },
-        calculable: true,
-        series: [
-          {
-            name: "成分来源",
-            type: "pie",
-            radius: "75%",
-            center: ["30%", "60%"],
-            data: [],
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: "rgba(0, 0, 0, 0.5)",
-              },
-            },
-          },
-        ],
-      };
+    // async setWaterEchartsByMonth() {
+    //   const querydata = {
+    //     Year: this.formatToYearMonth(new Date(), "YYYY"),
+    //     Month: this.formatToYearMonth(new Date(), "MM"),
+    //   };
+    //   // await getIngredientDevicesMonthReportToWater(querydata).then((res) => {
+    //   //   this.waterIngredientConsumptionMonth = res.data;
+    //   // });
+    //   // 成分
+    //   // const deviceIngredientArray = this.waterIngredientConsumptionMonth.map(
+    //   //   (item) => item.Catalog2
+    //   // );
+    //   // const DosageIngredientArrray = this.waterIngredientConsumptionMonth.map(
+    //   //   (item) => {
+    //   //     return {
+    //   //       value: item.SumDosage,
+    //   //       name: item.Catalog2,
+    //   //     };
+    //   //   }
+    //   // );
+    //   let pieoption = {
+    //     title: {
+    //       text: "",
+    //       x: "center",
+    //     },
+    //     tooltip: {
+    //       trigger: "item",
+    //       formatter: "{a} <br/>{b} : {c} ({d}%)",
+    //     },
+    //     legend: {
+    //       orient: "vertical",
+    //       left: "right",
+    //       data: [],
+    //       textStyle: {
+    //         color: "#fffffff",
+    //       },
+    //     },
+    //     calculable: true,
+    //     series: [
+    //       {
+    //         name: "成分来源",
+    //         type: "pie",
+    //         radius: "75%",
+    //         center: ["30%", "60%"],
+    //         data: [],
+    //         emphasis: {
+    //           itemStyle: {
+    //             shadowBlur: 10,
+    //             shadowOffsetX: 0,
+    //             shadowColor: "rgba(0, 0, 0, 0.5)",
+    //           },
+    //         },
+    //       },
+    //     ],
+    //   };
 
-      pieoption.legend.data = deviceIngredientArray;
+    //   pieoption.legend.data = deviceIngredientArray;
 
-      pieoption.series[0].data = DosageIngredientArrray;
+    //   pieoption.series[0].data = DosageIngredientArrray;
 
-      if (
-        pieChartWater != null &&
-        pieChartWater != "" &&
-        pieChartWater != undefined
-      ) {
-        pieChartWater.dispose(); //销毁
-      }
-      pieChartWater = echarts.init(
-        document.getElementById(
-          "echarts-bar-Consumption-month-water-Ingredient"
-        )
-      );
+    //   if (
+    //     pieChartWater != null &&
+    //     pieChartWater != "" &&
+    //     pieChartWater != undefined
+    //   ) {
+    //     pieChartWater.dispose(); //销毁
+    //   }
+    //   pieChartWater = echarts.init(
+    //     document.getElementById(
+    //       "echarts-bar-Consumption-month-water-Ingredient"
+    //     )
+    //   );
 
-      pieChartWater.setOption(pieoption);
-      window.onresize = pieChartWater.resize;
-    },
+    //   pieChartWater.setOption(pieoption);
+    //   window.onresize = pieChartWater.resize;
+    // },
     async setGasEchartsByMonth() {
       const querydata = {
         Year: this.formatToYearMonth(new Date(), "YYYY"),

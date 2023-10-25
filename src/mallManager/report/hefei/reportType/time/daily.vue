@@ -24,7 +24,8 @@
     <div id="pageDetail" v-show="detailShow">
       详细数据
       <el-table :data="tableData" border style="width: 100%">
-        <el-table-column prop="ID" label="ID" width="180"> </el-table-column>
+        <el-table-column type="index" width="50" />
+        <!-- <el-table-column prop="ID" label="ID" width="180"> </el-table-column> -->
         <el-table-column prop="Hour" label="日期" width="180">
         </el-table-column>
         <el-table-column prop="Name" label="设备名称" width="180">
@@ -53,10 +54,10 @@
 import * as echarts from "echarts";
 import {
   getDevicesByID,
-  getDevicesDayReportToWater,
+  // getDevicesDayReportToWater,
   getDevicesDayReportToElectricity,
   getDevicesDayReportToGas,
-  getDevicesDayReportToWaterDetail,
+  // getDevicesDayReportToWaterDetail,
   getDevicesDayReportToElectricityDetail,
   getDevicesDayReportToGasDetail,
 } from "@/api/hefei";
@@ -75,7 +76,7 @@ export default {
     return {
       title: "表格",
       json_fields: {
-        ID: "ID",
+        // ID: "ID",
         日期: "Hour",
         设备名称: "Name",
         用量: "Dosage",
@@ -115,9 +116,9 @@ export default {
         DeviceID: this.deviceInfo.Id,
       };
       if (this.deviceInfo.Category1 === "水") {
-        await getDevicesDayReportToWaterDetail(querydata).then((res) => {
-          this.tableData = Array.isArray(res.data) ? res.data : [];
-        });
+        // await getDevicesDayReportToWaterDetail(querydata).then((res) => {
+        //   this.tableData = Array.isArray(res.data) ? res.data : [];
+        // });
       } else if (
         this.deviceInfo.Category1 === "电" ||
         this.deviceInfo.Category1 === "Electricity"
@@ -187,10 +188,10 @@ export default {
         DeviceID: this.deviceInfo.Id,
       };
       if (this.deviceInfo.Category1 === "水") {
-        this.monthUnit = "m³";
-        await getDevicesDayReportToWater(querydata).then((res) => {
-          this.objConsumptionDay = res.data;
-        });
+        // this.monthUnit = "m³";
+        // await getDevicesDayReportToWater(querydata).then((res) => {
+        //   this.objConsumptionDay = res.data;
+        // });
       } else if (
         this.deviceInfo.Category1 === "电" ||
         this.deviceInfo.Category1 === "Electricity"
