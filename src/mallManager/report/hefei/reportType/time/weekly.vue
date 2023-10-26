@@ -28,14 +28,14 @@
     <div id="pageDetail" v-show="detailShow">
       详细数据
       <el-table :data="tableData" border style="width: 100%">
-        <el-table-column type="index" width="50" />
-        <!-- <el-table-column prop="ID" label="ID" width="180"> </el-table-column> -->
-        <el-table-column prop="Day" label="日期" width="180"> </el-table-column>
-        <el-table-column prop="Name" label="设备名称" width="180">
+        <el-table-column type="index" width="50" align="center" />
+        <!-- <el-table-column prop="ID" label="ID" width="200" align="center"> </el-table-column> -->
+        <el-table-column prop="Day" label="日期"  align="center"> </el-table-column>
+        <el-table-column prop="Name" label="设备名称"  align="center">
         </el-table-column>
-        <el-table-column prop="Dosage" label="用量"> </el-table-column>
-        <el-table-column prop="Unit" label="单位"> </el-table-column>
-        <el-table-column prop="Time" label="记录时间" :formatter="formatTime">
+        <el-table-column prop="Dosage" width="180" label="用量" align="center"> </el-table-column>
+        <el-table-column prop="Unit" width="180" label="单位" align="center"> </el-table-column>
+        <el-table-column prop="Time" label="记录时间" :formatter="formatTime" align="center">
         </el-table-column>
       </el-table>
       <download-excel

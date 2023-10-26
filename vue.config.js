@@ -48,7 +48,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/': {
-        target: 'http://10.1.0.250:5041/'
+        target: 'http://localhost:5041/'
       }
     },
     port: port,
